@@ -11,7 +11,7 @@
     <artifactId>api-gateway</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>api-gateway</name>
-    <description>Provides a single entry point for the API and load balancing amongst services</description>
+    <description>Provides a single entrypoint for the API and load balancing amongst services</description>
 
     <properties>
         <java.version>1.8</java.version>
