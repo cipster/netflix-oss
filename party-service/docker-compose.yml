@@ -13,7 +13,7 @@ services:
       - MONGO_LOG_DIR=/data/logs
       - MONGODB_DATABASE=parties
     volumes:
-      - ~/party-db/data/db:/data/db
+      - /temp/party-db/data/db:/data/db
     ports:
       - 27017:27017
     command: mongod --smallfiles --logpath=/dev/null # --quiet

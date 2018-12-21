@@ -1,4 +1,4 @@
-package nl.globalorange.compliancewise.apigateway;
+package nl.globalorange.compliancewise.discovery;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ApplicationTests {
+public class DiscoveryApplicationTests {
 
     @Test
     public void contextLoads() {

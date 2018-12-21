@@ -7,7 +7,7 @@ COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY ${DEPENDENCY}/META-INF /app/META-INF
 COPY ${DEPENDENCY}/BOOT-INF/classes /app
 
-ENTRYPOINT ["java","-cp","app:app/lib/*","nl.globalorange.compliancewise.config.Application"]
+ENTRYPOINT ["java","-cp","app:app/lib/*","ConfigApplication"]
 
 HEALTHCHECK --interval=30s --timeout=30s CMD wget --quiet --tries=10 --spider http://localhost:8888/actuator/health/ || exit 1
 
