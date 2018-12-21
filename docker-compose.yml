@@ -1,0 +1,51 @@
+version: '2.1'
+
+services:
+  config-service:
+    image: grub/config-service
+    container_name: "config-service.compliance-wise.me"
+    restart: always
+    ports:
+      - 8888:8888
+
+  discovery-service:
+    image: grub/discovery-service
+    container_name: "discovery-service.compliance-wise.me"
+    restart: always
+    depends_on:
+      config-service:
+        condition: service_healthy
+    ports:
+      - 8761:8761
+
+  api-gateway:
+    image: grub/api-gateway
+    container_name: "api-gateway.compliance-wise.me"
+    restart: always
+    depends_on:
+      config-service:
+        condition: service_healthy
+      discovery-service:
+        condition: service_healthy
+    ports:
+      - 8080:8080
+
+  party-db:
+    extends:
+      service: party-db-standalone
+      file: party-service/docker-compose.yml
+    ports:
+      - 27017:27017
+
+  party-service:
+    image: grub/party-service
+    container_name: "party-service.compliance-wise.me"
+    restart: always
+    depends_on:
+      config-service:
+        condition: service_healthy
+      party-db:
+        condition: service_healthy
+    ports:
+      - 8001:8001
+
