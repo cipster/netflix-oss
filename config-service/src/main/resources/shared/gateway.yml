@@ -1,0 +1,6 @@
+zuul:
+  routes:
+    party-service:
+      path: /parties/**
+      serviceId: party-service
+      stripPrefix: false
