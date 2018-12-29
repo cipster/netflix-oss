@@ -2,19 +2,19 @@ package nl.globalorange.compliancewise.parties.domain.repository;
 
 
 import nl.globalorange.compliancewise.parties.domain.BaseRepository;
-import nl.globalorange.compliancewise.parties.domain.model.party.Party;
+import nl.globalorange.compliancewise.parties.domain.model.BankAccount;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.core.annotation.RestResource;
 
-@RestResource(rel = Party.PATH, path = Party.PATH)
-public interface PartyRepository extends BaseRepository<Party> {
+@RestResource(rel = BankAccount.PATH, path = BankAccount.PATH)
+public interface BankAccountRepository extends BaseRepository<BankAccount> {
 
     @RestResource
     @Override
-    Page<Party> findAll(Pageable pageable);
+    Page<BankAccount> findAll(Pageable pageable);
 
     @RestResource
     @Override
-    <S extends Party> S save(S entity);
+    <S extends BankAccount> S save(S entity);
 }

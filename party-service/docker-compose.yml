@@ -1,19 +1,9 @@
 version: '2.1'
 services:
   party-db-standalone:
-    build:
-      context: docker
-      dockerfile: Dockerfile
+    image: postgres
     container_name: "party-db.compliance-wise.me"
     restart: always
-    environment:
-      - MONGODB_USER=admin
-      - MONGODB_PASS=password
-      - MONGO_DATA_DIR=/data/db
-      - MONGO_LOG_DIR=/data/logs
-      - MONGODB_DATABASE=parties
-    volumes:
-      - /temp/party-db/data/db:/data/db
+    env_file: ./.env
     ports:
-      - 27017:27017
-    command: mongod --smallfiles --logpath=/dev/null # --quiet
+      - 5432:5432
