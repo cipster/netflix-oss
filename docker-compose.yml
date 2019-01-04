@@ -14,7 +14,7 @@ services:
     restart: always
     depends_on:
       config-service:
-        condition: service_healthy
+        condition: service_started
     ports:
       - 8761:8761
 
@@ -24,9 +24,9 @@ services:
     restart: always
     depends_on:
       config-service:
-        condition: service_healthy
+        condition: service_started
       discovery-service:
-        condition: service_healthy
+        condition: service_started
     ports:
       - 8080:8080
 
@@ -43,9 +43,21 @@ services:
     restart: always
     depends_on:
       config-service:
-        condition: service_healthy
+        condition: service_started
       party-db:
-        condition: service_healthy
+        condition: service_started
     ports:
       - 8001:8001
+
+#  turbine-stream-service:
+#    image: grub/turbine-stream-service
+#    container_name: "turbine-stream-service.compliance-wise.me"
+#    restart: always
+#    depends_on:
+#      config-service:
+#        condition: service_started
+#      discovery-service:
+#        condition: service_started
+#    ports:
+#      - 8989:8989
 

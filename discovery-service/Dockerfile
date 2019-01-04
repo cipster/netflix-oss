@@ -7,8 +7,6 @@ COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY ${DEPENDENCY}/META-INF /app/META-INF
 COPY ${DEPENDENCY}/BOOT-INF/classes /app
 
-ENTRYPOINT ["java","-cp","app:app/lib/*","DiscoveryApplication"]
-
-HEALTHCHECK --interval=30s --timeout=30s CMD wget --quiet --tries=10 --spider http://localhost:8761/actuator/health/ || exit 1
+ENTRYPOINT ["java","-cp","app:app/lib/*","nl.globalorange.compliancewise.discovery.DiscoveryApplication"]
 
 EXPOSE 8761
