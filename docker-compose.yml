@@ -49,15 +49,22 @@ services:
     ports:
       - 8001:8001
 
-#  turbine-stream-service:
-#    image: grub/turbine-stream-service
-#    container_name: "turbine-stream-service.compliance-wise.me"
-#    restart: always
-#    depends_on:
-#      config-service:
-#        condition: service_started
-#      discovery-service:
-#        condition: service_started
-#    ports:
-#      - 8989:8989
+
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+  turbine-stream-service:
+    image: grub/turbine-stream-service
+    container_name: "turbine-stream-service.compliance-wise.me"
+    restart: always
+    depends_on:
+      config-service:
+        condition: service_started
+      discovery-service:
+        condition: service_started
+    ports:
+      - 8989:8989
 
