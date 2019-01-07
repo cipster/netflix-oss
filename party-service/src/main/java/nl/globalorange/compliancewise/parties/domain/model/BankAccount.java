@@ -28,6 +28,7 @@ import static javax.persistence.EnumType.STRING;
 @SequenceGenerator(name = "pk_sequence", sequenceName = "bank_account_id_seq", allocationSize = 1)
 public class BankAccount extends BaseEntity {
     public static final String PATH = "bank-accounts";
+    public static final String SEQUENCE_NAME = "bank_account_id_seq";
 
     @NotEmpty
     @Column(name = "holder_name")

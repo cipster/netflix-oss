@@ -4,10 +4,11 @@ import com.neovisionaries.i18n.CountryCode;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import nl.globalorange.compliancewise.parties.domain.BaseEntity;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -16,10 +17,19 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "legal_forms")
-@SequenceGenerator(name = "pk_sequence", sequenceName = "legal_forms_id_seq", allocationSize = 1)
+@GenericGenerator(
+        name = BaseEntity.Constants.SEQ_GENERATOR,
+        strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+        parameters = {
+                @Parameter(name = "sequence_name", value = LegalForm.SEQUENCE_NAME),
+                @Parameter(name = "initial_value", value = "1"),
+                @Parameter(name = "increment_size", value = "1")
+        }
+)
 public class LegalForm extends BaseEntity {
 
     public static final String PATH = "legal-forms";
+    public static final String SEQUENCE_NAME = "legal_forms_id_seq";
 
     @Column(name = "legal_form")
     private String legalFormCode;

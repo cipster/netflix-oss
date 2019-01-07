@@ -1,2 +1,5 @@
-# grub
-Compliancewise GRUB project
+# GRUB
+ComplianceWise GRUB
+
+## Architecture
+
