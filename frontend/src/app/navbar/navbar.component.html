@@ -7,8 +7,18 @@
                  [opened]="!(isHandset$ | async) && authService.isLoggedIn"
                  [position]="(isHandset$ | async) ? 'end': 'start'"
                  class="sidenav">
-        <mat-toolbar fxLayout="row" fxLayoutAlign="center center">
-            <img [routerLink]="''" class="app-logo" height="50" src="./../../favicon.ico"/>
+        <mat-toolbar fxLayout="row" fxLayoutAlign="end center" fxLayoutAlign.gt-md="center center">
+            <button (tap)="drawer.close()"
+                    *ngIf="authService.isLoggedIn && (isHandset$ | async)"
+                    aria-label="Toggle sidenav"
+                    color="primary"
+                    mat-mini-fab
+                    type="button">
+                <mat-icon aria-label="Side nav toggle icon">close</mat-icon>
+            </button>
+            <img *ngIf="!(isHandset$ | async)"
+                 [routerLink]="''"
+                 class="app-logo" height="50" src="./../../assets/images/logo.png"/>
         </mat-toolbar>
         <mat-nav-list *ngIf="(isHandset$ | async)">
             <a *ngFor="let menuButton of menuButtons"
@@ -34,7 +44,9 @@
     </mat-sidenav>
     <mat-sidenav-content>
         <mat-toolbar *ngIf="authService.isLoggedIn" color="primary">
-            <span class="grub-green">Gr<span style="font-family: 'Comic Sans MS', cursive, sans-serif">u</span>b</span>
+            <img *ngIf="(isHandset$ | async)"
+                 [routerLink]="''"
+                 class="app-logo" height="50" src="./../../assets/images/logo.png"/>
             <span class="fill-remaining-space"></span>
 
             <mat-menu #appMenu="matMenu">
