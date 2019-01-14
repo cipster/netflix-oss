@@ -17,11 +17,13 @@
                     <mat-icon (click)="hide = !hide" matSuffix>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     <mat-error *ngIf="password.hasError('required')">This is required</mat-error>
                 </mat-form-field>
-                <button [color]="'primary'"
-                        [disabled]="password.invalid || email.invalid"
-                        mat-flat-button
-                >Login
-                </button>
+                <div>
+                    <button [disabled]="password.invalid || email.invalid"
+                            color="primary"
+                            mat-flat-button>
+                        Login
+                    </button>
+                </div>
             </form>
         </mat-card>
     </div>

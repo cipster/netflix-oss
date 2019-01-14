@@ -1,3 +1,5 @@
+@import "~src/styles";
+
 .sidenav-container {
   height: 100%;
   position: absolute;
@@ -9,6 +11,7 @@
 
 .sidenav {
   width: 200px;
+  background: $grub-blue;
 }
 
 .sidenav .mat-toolbar {
@@ -27,7 +30,7 @@
 
 .mat-menu-item.active,
 .mat-list-item.active {
-  background: rgba(255, 255, 255, 0.04);
+  background: darken($grub-blue, 2);
   color: wheat
 }
 

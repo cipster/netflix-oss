@@ -4,25 +4,107 @@
 
 @include mat-core();
 
-$primary: mat-palette($mat-green, 400);
-$accent: mat-palette($mat-green, 200);
+$grub-blue: #012f41;
 
-$theme: mat-dark-theme($primary, $accent);
+$grub-green: (
+        50: #e0ffe0,
+        100: #b3ffb3,
+        200: #80ff80,
+        300: #4dff4d,
+        400: #26ff26,
+        500: #00ff00,
+        600: #00ff00,
+        700: #00ff00,
+        800: #00ff00,
+        900: #00ff00,
+        A100: #ffffff,
+        A200: #f2fff2,
+        A400: #bfffbf,
+        A700: #a6ffa6,
+        contrast: (
+                50: $dark-primary-text,
+                100: $dark-primary-text,
+                200: $dark-primary-text,
+                300: $dark-primary-text,
+                400: $dark-primary-text,
+                500: $dark-primary-text,
+                600: $light-primary-text,
+                700: $light-primary-text,
+                800: $light-primary-text,
+                900: $light-primary-text,
+                A100: $dark-primary-text,
+                A200: $dark-primary-text,
+                A400: $dark-primary-text,
+                A700: $dark-primary-text,
+        )
+);
+
+// Foreground palette for grub theme.
+$grub-foreground: (
+        base: white,
+        divider: $light-dividers,
+        dividers: $light-dividers,
+        disabled: $light-disabled-text,
+        disabled-button: rgba(white, 0.3),
+        disabled-text: $light-disabled-text,
+        elevation: black,
+        hint-text: $light-disabled-text,
+        secondary-text: $light-secondary-text,
+        icon: white,
+        icons: white,
+        text: white,
+        slider-min: white,
+        slider-off: rgba(white, 0.3),
+        slider-off-active: rgba(white, 0.3),
+);
+
+// Background palette for grub theme.
+$grub-background: (
+        status-bar: black,
+        app-bar: $grub-blue,
+        background: $grub-blue,
+        hover: rgba(white, 0.04), // TODO(kara): check style with Material Design UX
+        card: lighten($grub-blue, 2),
+        dialog: map_get($mat-grey, 800),
+        disabled-button: rgba(white, 0.12),
+        raised-button: map-get($mat-grey, 800),
+        focused-button: $light-focused,
+        selected-button: map_get($mat-grey, 900),
+        selected-disabled-button: map_get($mat-grey, 800),
+        disabled-button-toggle: black,
+        unselected-chip: map_get($mat-grey, 700),
+        disabled-list-option: black,
+);
+
+$primary: mat-palette($grub-green, 500);
+$accent: mat-palette($grub-green, 200);
+
+
+@function grub-dark-theme($primary, $accent, $warn: mat-palette($mat-red)) {
+  @return (
+          primary: $primary,
+          accent: $accent,
+          warn: $warn,
+          is-dark: true,
+          foreground: $grub-foreground,
+          background: $grub-background,
+  );
+}
+
+$theme: grub-dark-theme($primary, $accent);
 
 @include angular-material-theme($theme);
 
-.dulce-background {
-  background: url(./assets/images/bg-pattern.png), #202020;
-  background: url(./assets/images/bg-pattern.png), -webkit-linear-gradient(to left, #353535, #202020);
-  background: url(./assets/images/bg-pattern.png), linear-gradient(to left, #353535, #202020);
-}
-
 .mat-tab-label-container {
-  background-color: rgb(42, 42, 42) !important;
+  background-color: darken($grub-blue, 1) !important;
   color: white !important;
 }
 
 mat-sidenav-content mat-toolbar {
-  background-color: rgb(47, 47, 47) !important;
+  background-color: $grub-blue !important;
   color: white !important;
+}
+
+.grub-green {
+  color: map_get($primary, 'default');
 }

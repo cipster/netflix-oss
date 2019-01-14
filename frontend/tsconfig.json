@@ -1,6 +1,11 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "*": [
+        "types/*"
+      ]
+    },
     "baseUrl": "./",
     "outDir": "./www/out-tsc",
     "sourceMap": true,
