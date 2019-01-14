@@ -31,7 +31,7 @@
 .mat-menu-item.active,
 .mat-list-item.active {
   background: darken($grub-blue, 3);
-  color: wheat
+  color: wheat !important;
 }
 
 .app-logo {

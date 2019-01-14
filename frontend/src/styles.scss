@@ -4,7 +4,7 @@
 
 @include mat-core();
 
-$grub-blue: #012f41;
+$grub-blue: rgb(25, 54, 67);
 
 $grub-green: (
         50: #e0ffe0,
@@ -101,7 +101,7 @@ $theme: grub-dark-theme($primary, $accent);
 }
 
 mat-sidenav-content mat-toolbar {
-  background-color: darken($grub-blue, 1) !important;
+  background-color: $grub-blue !important;
   color: white !important;
 }
 
