@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
         document.addEventListener('deviceready', function () {
             alert(device.platform);
             console.log(device.platform);
+            console.log('cucu')
         }, false);
 
         document.addEventListener('backbutton', function (evt) {

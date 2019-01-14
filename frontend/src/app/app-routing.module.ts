@@ -12,6 +12,30 @@ const routes: Routes = [
         component: DashboardComponent
     },
     {
+        path: 'clients',
+        canActivate: [AuthGuard],
+        pathMatch: 'full',
+        component: DashboardComponent
+    },
+    {
+        path: 'parties',
+        canActivate: [AuthGuard],
+        pathMatch: 'full',
+        component: DashboardComponent
+    },
+    {
+        path: 'assignments',
+        canActivate: [AuthGuard],
+        pathMatch: 'full',
+        component: DashboardComponent
+    },
+    {
+        path: 'reports',
+        canActivate: [AuthGuard],
+        pathMatch: 'full',
+        component: DashboardComponent
+    },
+    {
         path: 'settings',
         canActivate: [AuthGuard],
         pathMatch: 'full',

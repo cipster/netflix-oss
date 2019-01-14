@@ -19,12 +19,12 @@ export class NavbarComponent implements OnInit {
         .pipe(
             map(result => result.matches)
         );
-    menuButtons = this.menuService.getMenuButtons();
+    menuButtons = MenuService.getMenuButtons();
 
     constructor(private breakpointObserver: BreakpointObserver,
                 private menuService: MenuService,
                 private router: Router,
-                private authService: AuthService) {
+                public authService: AuthService) {
     }
 
     ngOnInit() {

@@ -9,7 +9,13 @@ export class MenuService {
     constructor() {
     }
 
-    getMenuButtons(): MenuButton[] {
-        return [new MenuButton('/dashboard', 'Dashboard')];
+    static getMenuButtons(): MenuButton[] {
+        return [
+            new MenuButton('/dashboard', 'Dashboard'),
+            new MenuButton('/clients', 'Clients'),
+            new MenuButton('/parties', 'Parties'),
+            new MenuButton('/assignments', 'Assignments'),
+            new MenuButton('/reports', 'Reports'),
+        ];
     }
 }

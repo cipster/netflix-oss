@@ -61,9 +61,9 @@ $grub-foreground: (
 // Background palette for grub theme.
 $grub-background: (
         status-bar: black,
-        app-bar: $grub-blue,
+        app-bar: darken($grub-blue, 1),
         background: $grub-blue,
-        hover: rgba(white, 0.04), // TODO(kara): check style with Material Design UX
+        hover: rgba(white, 0.06),
         card: lighten($grub-blue, 2),
         dialog: map_get($mat-grey, 800),
         disabled-button: rgba(white, 0.12),
@@ -96,12 +96,12 @@ $theme: grub-dark-theme($primary, $accent);
 @include angular-material-theme($theme);
 
 .mat-tab-label-container {
-  background-color: darken($grub-blue, 1) !important;
+  background-color: darken($grub-blue, 2) !important;
   color: white !important;
 }
 
 mat-sidenav-content mat-toolbar {
-  background-color: $grub-blue !important;
+  background-color: darken($grub-blue, 1) !important;
   color: white !important;
 }
 
