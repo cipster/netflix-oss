@@ -1,0 +1,69 @@
+<mat-sidenav-container (backdropClick)="drawer.close()"
+                       class="sidenav-container">
+    <mat-sidenav #drawer
+                 [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+                 [fixedInViewport]="true"
+                 [mode]="(isHandset$ | async) ? 'over' : 'side'"
+                 [opened]="!(isHandset$ | async) && authService.isLoggedIn"
+                 [position]="(isHandset$ | async) ? 'end': 'start'"
+                 class="sidenav">
+        <mat-toolbar fxLayout="row" fxLayoutAlign="center center">
+            <img [routerLink]="''" class="app-logo" height="50" src="./../../favicon.ico"/>
+        </mat-toolbar>
+        <mat-nav-list *ngIf="(isHandset$ | async)">
+            <a *ngFor="let menuButton of menuButtons"
+               [routerLinkActive]="'active'"
+               [routerLink]="[menuButton.url]"
+               mat-list-item>
+                {{menuButton.name}}
+            </a>
+            <mat-divider></mat-divider>
+            <a [routerLinkActive]="'active'"
+               [routerLink]="['/settings']"
+               mat-list-item>
+                Settings
+            </a>
+            <a (tap)="logout(drawer.close())" mat-list-item>Log off</a>
+        </mat-nav-list>
+        <mat-nav-list *ngIf="!(isHandset$ | async)">
+            <a *ngFor="let menuButton of menuButtons"
+               [routerLinkActive]="'active mat-elevation-z1'"
+               [routerLink]="menuButton.url"
+               mat-list-item>{{menuButton.name}}</a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="dulce-background">
+        <mat-toolbar *ngIf="authService.isLoggedIn" color="primary">
+            <span>APP TITLE</span>
+            <span class="fill-remaining-space"></span>
+
+            <mat-menu #appMenu="matMenu">
+                <ng-template let-name="settings" matMenuContent>
+                    <button [routerLinkActive]="'active mat-elevation-z1'"
+                            [routerLink]="['/settings']"
+                            mat-menu-item>Settings
+                    </button>
+                    <button (tap)="authService.logout()" mat-menu-item>Log off</button>
+                </ng-template>
+            </mat-menu>
+
+            <button
+                    *ngIf="!(isHandset$ | async)"
+                    [matMenuTriggerFor]="appMenu"
+                    mat-icon-button>
+                <img class="app-logo" height="30"
+                     src="https://image.devidentify.com/bostanciprian@gmail.com?default=https://unigostaging.blob.core.windows.net/media/userimages/unigo_generic_avatar.jpg"/>
+            </button>
+
+            <button (tap)="drawer.open()"
+                    *ngIf="authService.isLoggedIn && (isHandset$ | async)"
+                    aria-label="Toggle sidenav"
+                    color="primary"
+                    mat-mini-fab
+                    type="button">
+                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

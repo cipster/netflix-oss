@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$primary: mat-palette($mat-green, 400);
+$accent: mat-palette($mat-green, 200);
+
+$theme: mat-dark-theme($primary, $accent);
+
+@include angular-material-theme($theme);
+
+.dulce-background {
+  background: url(./assets/images/bg-pattern.png), #202020;
+  background: url(./assets/images/bg-pattern.png), -webkit-linear-gradient(to left, #353535, #202020);
+  background: url(./assets/images/bg-pattern.png), linear-gradient(to left, #353535, #202020);
+}
+
+.mat-tab-label-container {
+  background-color: rgb(42, 42, 42) !important;
+  color: white !important;
+}
+
+mat-sidenav-content mat-toolbar {
+  background-color: rgb(47, 47, 47) !important;
+  color: white !important;
+}

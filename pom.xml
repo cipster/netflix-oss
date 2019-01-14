@@ -25,6 +25,7 @@
         <module>api-gateway</module>
         <module>party-service</module>
         <module>turbine-stream-service</module>
+        <module>frontend</module>
     </modules>
 
     <dependencies>
