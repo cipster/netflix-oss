@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.neovisionaries.i18n.CountryCode;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import nl.globalorange.compliancewise.parties.domain.BaseEntity;
+import nl.globalorange.compliancewise.core.domain.BaseEntity;
 import nl.globalorange.compliancewise.parties.domain.model.party.Party;
 
 import javax.persistence.Column;

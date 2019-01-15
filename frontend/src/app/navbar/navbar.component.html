@@ -18,7 +18,7 @@
             </button>
             <img *ngIf="!(isHandset$ | async)"
                  [routerLink]="''"
-                 class="app-logo" height="50" src="./../../assets/images/logo.png"/>
+                 class="app-logo" height="50" src="assets/images/logo.png"/>
         </mat-toolbar>
         <mat-nav-list *ngIf="(isHandset$ | async)">
             <a *ngFor="let menuButton of menuButtons"
@@ -46,7 +46,7 @@
         <mat-toolbar *ngIf="authService.isLoggedIn" color="primary">
             <img *ngIf="(isHandset$ | async)"
                  [routerLink]="''"
-                 class="app-logo" height="50" src="./../../assets/images/logo.png"/>
+                 class="app-logo" height="50" src="assets/images/logo.png"/>
             <span class="fill-remaining-space"></span>
 
             <mat-menu #appMenu="matMenu">

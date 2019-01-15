@@ -3,7 +3,7 @@ package nl.globalorange.compliancewise.parties.domain.model.party;
 import com.neovisionaries.i18n.CountryCode;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import nl.globalorange.compliancewise.parties.domain.BaseEntity;
+import nl.globalorange.compliancewise.core.domain.BaseEntity;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 

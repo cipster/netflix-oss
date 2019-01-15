@@ -1,4 +1,4 @@
-package nl.globalorange.compliancewise.parties.domain;
+package nl.globalorange.compliancewise.core.domain;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

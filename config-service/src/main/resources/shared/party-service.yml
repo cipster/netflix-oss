@@ -2,3 +2,8 @@ spring:
   data:
     rest:
       basePath: '/parties'
+hibernate:
+  connection:
+    url: 'jdbc:postgresql://localhost:5432/parties'
+  multiTenancy: 'SCHEMA'
+  multi_tenant_connection_provider: nl.globalorange.compliancewise.core.multitenancy.SchemaMultiTenantConnectionProvider

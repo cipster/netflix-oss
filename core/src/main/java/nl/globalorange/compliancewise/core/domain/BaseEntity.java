@@ -1,4 +1,4 @@
-package nl.globalorange.compliancewise.parties.domain;
+package nl.globalorange.compliancewise.core.domain;
 
 import lombok.Data;
 import org.hibernate.annotations.Where;

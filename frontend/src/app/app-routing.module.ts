@@ -6,7 +6,7 @@ import {SettingsComponent} from "./settings/settings.component";
 
 const routes: Routes = [
     {
-        path: 'dashboard',
+        path: 'tasks',
         canActivate: [AuthGuard],
         pathMatch: 'full',
         component: DashboardComponent
@@ -30,7 +30,7 @@ const routes: Routes = [
         component: DashboardComponent
     },
     {
-        path: 'reports',
+        path: 'dashboard',
         canActivate: [AuthGuard],
         pathMatch: 'full',
         component: DashboardComponent
@@ -43,7 +43,7 @@ const routes: Routes = [
     },
     {
         path: '',
-        redirectTo: '/dashboard',
+        redirectTo: '/tasks',
         canActivate: [AuthGuard],
         pathMatch: 'full'
     }

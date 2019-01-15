@@ -1,7 +1,7 @@
 package nl.globalorange.compliancewise.parties.domain.repository;
 
 
-import nl.globalorange.compliancewise.parties.domain.BaseRepository;
+import nl.globalorange.compliancewise.core.domain.BaseRepository;
 import nl.globalorange.compliancewise.parties.domain.model.party.Party;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
