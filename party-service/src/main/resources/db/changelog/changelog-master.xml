@@ -126,13 +126,22 @@
         </createTable>
 
         <sql>
-            CREATE UNIQUE INDEX party_passport_number_uindex ON parties (passport_number) WHERE type = 'INDIVIDUAL' AND deleted = FALSE;
-            CREATE UNIQUE INDEX party_external_id_uindex ON parties (external_id) WHERE deleted = FALSE;
+            CREATE UNIQUE INDEX party_passport_number_uindex ON ${database.defaultSchemaName}.parties (passport_number) WHERE type = 'INDIVIDUAL' AND deleted = FALSE;
+            CREATE UNIQUE INDEX party_external_id_uindex ON ${database.defaultSchemaName}.parties (external_id) WHERE deleted = FALSE;
 
-            ALTER TABLE parties
+            ALTER TABLE ${database.defaultSchemaName}.parties
                 ADD CONSTRAINT chamber_of_commerce_number_mandatory_for_company CHECK ((type = 'INDIVIDUAL' AND chamber_of_commerce_number IS NULL) OR
                                                                                        (type = 'COMPANY' AND chamber_of_commerce_number IS NOT NULL)) NOT VALID;
 
         </sql>
+
+        <rollback>
+            <dropTable tableName="parties" cascadeConstraints="true"/>
+            <dropSequence sequenceName="party_id_seq"/>
+            <dropTable tableName="address" cascadeConstraints="true"/>
+            <dropSequence sequenceName="address_id_seq"/>
+            <dropTable tableName="legal_forms" cascadeConstraints="true"/>
+            <dropSequence sequenceName="legal_forms_id_seq"/>
+        </rollback>
     </changeSet>
 </databaseChangeLog>

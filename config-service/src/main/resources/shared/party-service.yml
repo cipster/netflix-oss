@@ -1,9 +1,23 @@
 spring:
   data:
     rest:
-      basePath: '/parties'
+      basePath: '/v1'
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.xml
+    default-schema: master
+  datasource:
+    url: jdbc:postgresql://${RDS_HOSTNAME}:${RDS_PORT}/parties
+    username: ${RDS_USERNAME}
+    password: ${RDS_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
 hibernate:
   connection:
-    url: 'jdbc:postgresql://localhost:5432/parties'
-  multiTenancy: 'SCHEMA'
+    url: jdbc:postgresql://${RDS_HOSTNAME}:${RDS_PORT}/parties
+  multiTenancy: SCHEMA
   multi_tenant_connection_provider: nl.globalorange.compliancewise.core.multitenancy.SchemaMultiTenantConnectionProvider
+
+server:
+  port: 8002

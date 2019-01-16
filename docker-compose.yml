@@ -6,7 +6,9 @@ services:
     container_name: "config-service.compliance-wise.me"
     restart: always
     ports:
-      - 8888:8888
+      - "8888:8888"
+    expose:
+      - "8888"
 
   discovery-service:
     image: grub/discovery-service
@@ -14,9 +16,11 @@ services:
     restart: always
     depends_on:
       config-service:
-        condition: service_started
+        condition: service_healthy
     ports:
-      - 8761:8761
+      - "8761:8761"
+    expose:
+      - "8761"
 
   api-gateway:
     image: grub/api-gateway
@@ -24,47 +28,64 @@ services:
     restart: always
     depends_on:
       config-service:
-        condition: service_started
-      discovery-service:
-        condition: service_started
+        condition: service_healthy
     ports:
-      - 8080:8080
+      - "8080:8080"
 
   party-db:
     extends:
       service: party-db-standalone
       file: party-service/docker-compose.yml
     ports:
-      - 27017:27017
+      - "5432:5432"
+
+  admin-service:
+    image: grub/admin-service
+    container_name: "admin-service.compliance-wise.me"
+    environment:
+      RDS_HOSTNAME: $RDS_HOSTNAME
+      RDS_PORT: $RDS_PORT
+      RDS_DB_NAME: $RDS_DB_NAME
+      RDS_USERNAME: $RDS_USERNAME
+      RDS_PASSWORD: $RDS_PASSWORD
+    restart: always
+    depends_on:
+      config-service:
+        condition: service_healthy
+    ports:
+      - "8001:8001"
 
   party-service:
     image: grub/party-service
     container_name: "party-service.compliance-wise.me"
+    environment:
+      RDS_HOSTNAME: $RDS_HOSTNAME
+      RDS_PORT: $RDS_PORT
+      RDS_DB_NAME: $RDS_DB_NAME
+      RDS_USERNAME: $RDS_USERNAME
+      RDS_PASSWORD: $RDS_PASSWORD
     restart: always
     depends_on:
       config-service:
-        condition: service_started
-      party-db:
-        condition: service_started
+        condition: service_healthy
     ports:
-      - 8001:8001
-
+      - "8002:8002"
 
   rabbitmq:
     image: rabbitmq:management
     ports:
-      - 5672:5672
-      - 15672:15672
+      - "5672:5672"
+      - "15672:15672"
 
-  turbine-stream-service:
-    image: grub/turbine-stream-service
-    container_name: "turbine-stream-service.compliance-wise.me"
-    restart: always
-    depends_on:
-      config-service:
-        condition: service_started
-      discovery-service:
-        condition: service_started
-    ports:
-      - 8989:8989
+#  turbine-stream-service:
+#    image: grub/turbine-stream-service
+#    container_name: "turbine-stream-service.compliance-wise.me"
+#    restart: always
+#    depends_on:
+#      config-service:
+#        condition: service_started
+#      discovery-service:
+#        condition: service_started
+#    ports:
+#      - "8989:8989"
 

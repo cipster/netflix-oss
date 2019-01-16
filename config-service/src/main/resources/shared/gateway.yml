@@ -1,6 +1,33 @@
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000
+
+ribbon:
+  ReadTimeout: 20000
+  ConnectTimeout: 20000
+
 zuul:
+  ignoredServices: '*'
+  host:
+    connect-timeout-millis: 20000
+    socket-timeout-millis: 20000
+
   routes:
-    party-service:
-      path: /parties/**
-      serviceId: party-service
+    admin-service:
+      path: /api/administration/**
+      url: http://admin-service:8001
       stripPrefix: false
+      sensitiveHeaders:
+
+    party-service:
+      path: /api/parties/**
+      url: http://party-service:8002
+      stripPrefix: false
+      sensitiveHeaders:
+
+server:
+  port: 8080
