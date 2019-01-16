@@ -13,11 +13,6 @@
     <name>turbine-stream-service</name>
     <description>Turbine Stream to collect Metrics</description>
 
-    <properties>
-        <java.version>1.8</java.version>
-        <spring-cloud.version>Greenwich.RC2</spring-cloud.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

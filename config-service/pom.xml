@@ -13,12 +13,6 @@
     <name>config-service</name>
     <description>Configuration Service to keep all configuration centralized</description>
 
-    <properties>
-        <java.version>1.8</java.version>
-        <spring-cloud.version>Greenwich.RC1</spring-cloud.version>
-        <docker.image.prefix>grub</docker.image.prefix>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>

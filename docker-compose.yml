@@ -9,6 +9,10 @@ services:
       - "8888:8888"
     expose:
       - "8888"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
 
   discovery-service:
     image: grub/discovery-service
@@ -21,6 +25,10 @@ services:
       - "8761:8761"
     expose:
       - "8761"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
 
   api-gateway:
     image: grub/api-gateway
@@ -31,6 +39,10 @@ services:
         condition: service_healthy
     ports:
       - "8080:8080"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
 
   party-db:
     extends:
@@ -38,6 +50,10 @@ services:
       file: party-service/docker-compose.yml
     ports:
       - "5432:5432"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
 
   admin-service:
     image: grub/admin-service
@@ -54,6 +70,10 @@ services:
         condition: service_healthy
     ports:
       - "8001:8001"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
 
   party-service:
     image: grub/party-service
@@ -70,12 +90,23 @@ services:
         condition: service_healthy
     ports:
       - "8002:8002"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
 
-  rabbitmq:
-    image: rabbitmq:management
+  monitoring-service:
+    image: grub/monitoring-service
+    restart: always
+    depends_on:
+      config-service:
+        condition: service_healthy
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - 9000:8080
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
 
   turbine-stream-service:
     image: grub/turbine-stream-service
@@ -86,4 +117,17 @@ services:
         condition: service_healthy
     ports:
       - "8989:8989"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
 
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"

@@ -16,6 +16,8 @@
     <packaging>pom</packaging>
 
     <properties>
+        <java.version>1.8</java.version>
+        <spring-cloud.version>Greenwich.RC2</spring-cloud.version>
         <docker.image.prefix>grub</docker.image.prefix>
     </properties>
 
@@ -26,6 +28,7 @@
         <module>discovery-service</module>
         <module>api-gateway</module>
         <module>party-service</module>
+        <module>monitoring-service</module>
         <module>turbine-stream-service</module>
         <module>frontend</module>
     </modules>
