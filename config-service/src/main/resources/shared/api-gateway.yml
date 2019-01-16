@@ -4,7 +4,7 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 20000
+            timeoutInMilliseconds: 40000
 
 ribbon:
   ReadTimeout: 20000
@@ -15,18 +15,17 @@ zuul:
   host:
     connect-timeout-millis: 20000
     socket-timeout-millis: 20000
-
   routes:
     admin-service:
       path: /api/administration/**
-      url: http://admin-service:8001
-      stripPrefix: false
+      serviceId: admin-service
+      stripPrefix: true
       sensitiveHeaders:
 
     party-service:
       path: /api/parties/**
-      url: http://party-service:8002
-      stripPrefix: false
+      serviceId: party-service
+      stripPrefix: true
       sensitiveHeaders:
 
 server:

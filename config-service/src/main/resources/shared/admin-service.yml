@@ -1,7 +1,4 @@
 spring:
-  data:
-    rest:
-      basePath: '/v1'
   liquibase:
     change-log: classpath:db/changelog/changelog-master.xml
     default-schema: master
