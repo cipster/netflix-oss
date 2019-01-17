@@ -3,6 +3,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from "./login/auth.guard";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {SettingsComponent} from "./settings/settings.component";
+import {PartyListingComponent} from "./parties/party-listing/party-listing.component";
+import {PartyDetailComponent} from "./parties/party-detail/party-detail.component";
 
 const routes: Routes = [
     {
@@ -21,7 +23,13 @@ const routes: Routes = [
         path: 'parties',
         canActivate: [AuthGuard],
         pathMatch: 'full',
-        component: DashboardComponent
+        component: PartyListingComponent
+    },
+    {
+        path: 'parties/:id',
+        canActivate: [AuthGuard],
+        pathMatch: 'full',
+        component: PartyDetailComponent
     },
     {
         path: 'assignments',

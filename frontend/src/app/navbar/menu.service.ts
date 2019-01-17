@@ -11,11 +11,11 @@ export class MenuService {
 
     static getMenuButtons(): MenuButton[] {
         return [
-            new MenuButton('/tasks', 'Tasks'),
-            new MenuButton('/clients', 'Clients'),
-            new MenuButton('/parties', 'Parties'),
-            new MenuButton('/assignments', 'Assignments'),
-            new MenuButton('/dashboard', 'Dashboard'),
+            new MenuButton('/tasks', 'Tasks', 'ballot'),
+            new MenuButton('/clients', 'Clients', 'work'),
+            new MenuButton('/parties', 'Parties', 'business'),
+            new MenuButton('/assignments', 'Assignments', 'assignment'),
+            new MenuButton('/dashboard', 'Dashboard', 'dashboard'),
         ];
     }
 }

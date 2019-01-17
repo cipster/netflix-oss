@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppComponent} from './app.component';
@@ -17,6 +17,14 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SettingsComponent} from "./settings/settings.component";
 import {DragDropModule} from "@angular/cdk/drag-drop";
+import {CoreModule} from "./core/core.module";
+import {PartiesModule} from "./parties/parties.module";
+import {registerLocaleData} from "@angular/common";
+import localeEn from '@angular/common/locales/en';
+import localeNl from '@angular/common/locales/nl';
+
+registerLocaleData(localeEn, 'en');
+registerLocaleData(localeNl, 'nl');
 
 @NgModule({
     declarations: [
@@ -30,20 +38,23 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
         FormsModule,
         DragDropModule,
         ReactiveFormsModule,
-        MaterialModule,
         FlexLayoutModule,
-        LoginModule,
         LoadingBarHttpModule,
         LoadingBarRouterModule,
         LoadingBarHttpClientModule,
         AppRoutingModule,
         AngularHalModule.forRoot(),
         HttpClientModule,
-        HttpClientXsrfModule
+        HttpClientXsrfModule,
+        MaterialModule,
+        LoginModule,
+        CoreModule,
+        PartiesModule,
     ],
     providers: [
         {provide: 'ExternalConfigurationService', useClass: ExternalConfigurationService},
         {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+        {provide: LOCALE_ID, useValue: 'nl'},
     ],
     bootstrap: [AppComponent]
 })

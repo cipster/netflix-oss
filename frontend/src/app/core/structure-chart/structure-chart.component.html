@@ -1,0 +1,22 @@
+<svg class="chart-container"
+     style="min-height: 500px; min-width: 400px; width: 100%; height: 100%;"
+     xml:space="preserve"
+     xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <filter height="180%" id="dropshadow" width="144%" x="-22%" y="-27%">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="10"></feGaussianBlur>
+                <!-- stdDeviation is how much to blur -->
+                <feOffset dx="0" dy="6" in="BEVEL_20" result="BEVEL_30"></feOffset> <!-- how much to offset -->
+                <feComposite in="BEVEL_20" in2="BEVEL_10" operator="out" result="BEVEL_30"></feComposite>
+
+                <feComponentTransfer>
+                <feFuncA slope="0.5" type="linear"></feFuncA> <!-- slope is the opacity of the shadow -->
+              </feComponentTransfer>
+                <feMerge>
+                <feMergeNode></feMergeNode> <!-- this contains the offset blurred image -->
+                    <feMergeNode in="SourceGraphic"></feMergeNode>
+                    <!-- this contains the element that the filter is applied to -->
+              </feMerge>
+            </filter>
+        </defs>
+    </svg>

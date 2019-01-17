@@ -8,6 +8,20 @@
                  [position]="(isHandset$ | async) ? 'end': 'start'"
                  class="sidenav">
         <mat-toolbar fxLayout="row" fxLayoutAlign="end center" fxLayoutAlign.gt-md="center center">
+            <button *ngIf="authService.isLoggedIn && (isHandset$ | async)"
+                    [routerLink]="''"
+                    id="sidebar-notifications"
+                    mat-icon-button
+                    type="button">
+                <mat-icon [inline]="true"
+                          [matBadge]="notifications.length"
+                          class="large-icon"
+                          color="primary"
+                          matBadgeColor="warn"
+                          matBadgePosition="above after">notifications
+                </mat-icon>
+            </button>
+
             <button (tap)="drawer.close()"
                     *ngIf="authService.isLoggedIn && (isHandset$ | async)"
                     aria-label="Toggle sidenav"
@@ -18,6 +32,7 @@
             </button>
             <img *ngIf="!(isHandset$ | async)"
                  [routerLink]="''"
+                 matRipple
                  class="app-logo" height="50" src="assets/images/logo.png"/>
         </mat-toolbar>
         <mat-nav-list *ngIf="(isHandset$ | async)">
@@ -25,49 +40,91 @@
                [routerLinkActive]="'active'"
                [routerLink]="[menuButton.url]"
                mat-list-item>
+                <mat-icon>{{menuButton.icon}}</mat-icon>
+                &nbsp;
                 {{menuButton.name}}
             </a>
             <mat-divider></mat-divider>
             <a [routerLinkActive]="'active'"
                [routerLink]="['/settings']"
                mat-list-item>
+                <mat-icon>settings</mat-icon>
+                &nbsp;
                 Settings
             </a>
-            <a (tap)="logout(drawer.close())" mat-list-item>Log off</a>
+            <a (tap)="logout(drawer.close())" mat-list-item>
+                <mat-icon>power_settings_new</mat-icon>
+                &nbsp;
+                Log off
+            </a>
         </mat-nav-list>
         <mat-nav-list *ngIf="!(isHandset$ | async)">
             <a *ngFor="let menuButton of menuButtons"
                [routerLinkActive]="'active mat-elevation-z1'"
                [routerLink]="menuButton.url"
-               mat-list-item>{{menuButton.name}}</a>
+               mat-list-item>
+                <mat-icon>{{menuButton.icon}}</mat-icon>
+                &nbsp;
+                {{menuButton.name}}
+            </a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
         <mat-toolbar *ngIf="authService.isLoggedIn" color="primary">
             <img *ngIf="(isHandset$ | async)"
                  [routerLink]="''"
+                 matRipple
                  class="app-logo" height="50" src="assets/images/logo.png"/>
             <span class="fill-remaining-space"></span>
 
+            <!--Notifications menu-->
+            <mat-menu #notificationsMenu="matMenu"
+                      [overlapTrigger]="false">
+                <ng-template let-name="notifications" matMenuContent>
+                    <button *ngFor="let notification of notifications" mat-menu-item>
+                        {{notification.message}}
+                    </button>
+                </ng-template>
+            </mat-menu>
+            <button
+                    *ngIf="!(isHandset$ | async)"
+                    [matMenuTriggerFor]="notificationsMenu"
+                    mat-icon-button>
+                <mat-icon [matBadge]="notifications.length"
+                          color="primary"
+                          matBadgeColor="warn"
+                          matBadgePosition="above before">notifications
+                </mat-icon>
+            </button>
+            <!--Notifications menu-->
+
+            <!--User menu-->
             <mat-menu #appMenu="matMenu">
                 <ng-template let-name="settings" matMenuContent>
                     <button [routerLinkActive]="'active mat-elevation-z1'"
                             [routerLink]="['/settings']"
-                            mat-menu-item>Settings
+                            mat-menu-item>
+                        <mat-icon>settings</mat-icon>
+                        Settings
                     </button>
-                    <button (tap)="authService.logout()" mat-menu-item>Log off</button>
+                    <button (tap)="authService.logout()" mat-menu-item>
+                        <mat-icon>power_settings_new</mat-icon>
+                        Log off
+                    </button>
                 </ng-template>
             </mat-menu>
-
             <button
                     *ngIf="!(isHandset$ | async)"
                     [matMenuTriggerFor]="appMenu"
+                    matRipple
                     mat-icon-button>
                 <img class="app-logo" height="30"
                      src="https://image.devidentify.com/bostanciprian@gmail.com?default=https://unigostaging.blob.core.windows.net/media/userimages/unigo_generic_avatar.jpg"/>
             </button>
+            <!--User menu-->
 
             <button (tap)="drawer.open()"
+                    matRipple
                     *ngIf="authService.isLoggedIn && (isHandset$ | async)"
                     aria-label="Toggle sidenav"
                     color="primary"

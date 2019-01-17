@@ -108,3 +108,15 @@ mat-sidenav-content mat-toolbar {
 .grub-green {
   color: map_get($primary, 'default');
 }
+
+.large-icon {
+  font-size: 32px !important;
+}
+
+.huge-icon {
+  font-size: 48px !important;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}

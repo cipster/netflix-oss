@@ -15,7 +15,7 @@ Use [Android Studio](https://developer.android.com/studio/) or [Intellij IDEA](h
 ### Gradle
 On Debian/Ubuntu just run `sudo apt install gradle`. For more info please see official [Gradle docs](https://gradle.org/install/).
 
-### After all above packages are install install the project dependencies
+### After all above packages are installed install the project dependencies
 Either run `npm install` or `yarn` inside the *_frontend_* folder.<br/>
 To install yarn just run `npm install -g yarn` 
 

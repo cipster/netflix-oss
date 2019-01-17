@@ -21,6 +21,8 @@ export class NavbarComponent implements OnInit {
         );
     menuButtons = MenuService.getMenuButtons();
 
+    notifications = [{message: 'Christiaan just gave you a raise'}];
+
     constructor(private breakpointObserver: BreakpointObserver,
                 private menuService: MenuService,
                 private router: Router,

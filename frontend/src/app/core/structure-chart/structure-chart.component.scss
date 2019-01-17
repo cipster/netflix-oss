@@ -1,0 +1,81 @@
+.orgchart {
+  background: white;
+  min-height: 400px;
+  width: 100%;
+  overflow: hidden;
+  margin: 0;
+}
+
+.chart-container {
+  background: white;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.links line {
+  stroke-opacity: 0.6;
+  stroke-width: 3px;
+  cursor: pointer;
+}
+
+.links line:hover {
+  stroke-opacity: 1;
+  filter: url(#dropshadow);
+}
+
+.nodes rect {
+  cursor: pointer;
+}
+
+.hoverable:hover {
+  stroke-opacity: 0;
+  filter: url(#dropshadow);
+}
+
+.selected .hoverable {
+  stroke-opacity: 0;
+  filter: url(#dropshadow);
+}
+
+text {
+  font-family: sans-serif;
+  font-size: 16px;
+}
+
+.dragging {
+  cursor: grabbing;
+}
+
+.key-party-tooltip,
+.document-management-tooltip {
+  font-weight: bold;
+  position: absolute;
+  display: none;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: white;
+  padding: 7px !important
+}
+
+.structure-tooltip .action-list,
+.structure-link-tooltip .action-list {
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: white;
+}
+
+.structure-tooltip .action-list .item,
+.structure-link-tooltip .action-list .item {
+  padding: 7px !important;
+}
+
+.structure-tooltip .action-list .item:hover,
+.structure-link-tooltip .action-list .item:hover {
+  background: whitesmoke;
+  cursor: pointer;
+}
