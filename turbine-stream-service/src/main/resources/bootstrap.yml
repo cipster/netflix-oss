@@ -5,3 +5,5 @@ spring:
     config:
       uri: http://config-service:8888
       fail-fast: true
+      username: user
+      password: ${CONFIG_SERVICE_PASSWORD}

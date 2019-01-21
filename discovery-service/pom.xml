@@ -87,7 +87,6 @@
                         <phase>install</phase>
                         <goals>
                             <goal>build</goal>
-                            <!--<goal>push</goal>   ?push to aws? -->
                         </goals>
                     </execution>
                 </executions>

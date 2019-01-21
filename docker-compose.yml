@@ -4,6 +4,8 @@ services:
   config-service:
     image: grub/config-service
     container_name: "config-service.compliance-wise.me"
+    environment:
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     restart: always
     ports:
       - "8888:8888"
@@ -17,6 +19,8 @@ services:
   discovery-service:
     image: grub/discovery-service
     container_name: "discovery-service.compliance-wise.me"
+    environment:
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     restart: always
     depends_on:
       config-service:
@@ -30,9 +34,36 @@ services:
         max-size: "10m"
         max-file: "10"
 
+  auth-service:
+    environment:
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+      ADMIN_SERVICE_PASSWORD: $ADMIN_SERVICE_PASSWORD
+      PARTY_SERVICE_PASSWORD: $PARTY_SERVICE_PASSWORD
+    image: grub/auth-service
+    restart: always
+    depends_on:
+      config-service:
+        condition: service_healthy
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  auth-mongodb:
+    extends:
+      service: auth-db-standalone
+      file: auth-service/docker-compose.yml
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
   api-gateway:
     image: grub/api-gateway
     container_name: "api-gateway.compliance-wise.me"
+    environment:
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     restart: always
     depends_on:
       config-service:
@@ -59,6 +90,7 @@ services:
     image: grub/admin-service
     container_name: "admin-service.compliance-wise.me"
     environment:
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
       RDS_HOSTNAME: $RDS_HOSTNAME
       RDS_PORT: $RDS_PORT
       RDS_DB_NAME: $RDS_DB_NAME
@@ -79,6 +111,7 @@ services:
     image: grub/party-service
     container_name: "party-service.compliance-wise.me"
     environment:
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
       RDS_HOSTNAME: $RDS_HOSTNAME
       RDS_PORT: $RDS_PORT
       RDS_DB_NAME: $RDS_DB_NAME
@@ -97,6 +130,9 @@ services:
 
   monitoring-service:
     image: grub/monitoring-service
+    container_name: "monitoring-service.compliance-wise.me"
+    environment:
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     restart: always
     depends_on:
       config-service:
@@ -111,6 +147,8 @@ services:
   turbine-stream-service:
     image: grub/turbine-stream-service
     container_name: "turbine-stream-service.compliance-wise.me"
+    environment:
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     restart: always
     depends_on:
       config-service:
