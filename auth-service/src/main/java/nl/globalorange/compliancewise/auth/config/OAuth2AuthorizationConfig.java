@@ -1,9 +1,8 @@
 package nl.globalorange.compliancewise.auth.config;
 
+import lombok.RequiredArgsConstructor;
 import nl.globalorange.compliancewise.auth.service.security.MongoUserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,26 +14,16 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 
-@Configuration
+@RequiredArgsConstructor
 @EnableAuthorizationServer
 public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
+    @Qualifier("authenticationManagerBean")
     private final AuthenticationManager authenticationManager;
     private final MongoUserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
     private final Environment env;
     private TokenStore tokenStore = new InMemoryTokenStore();
-
-    @Autowired
-    public OAuth2AuthorizationConfig(@Qualifier("authenticationManagerBean") AuthenticationManager authenticationManager,
-                                     MongoUserDetailsService userDetailsService,
-                                     PasswordEncoder passwordEncoder,
-                                     Environment environment) {
-        this.authenticationManager = authenticationManager;
-        this.userDetailsService = userDetailsService;
-        this.passwordEncoder = passwordEncoder;
-        this.env = environment;
-    }
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) {

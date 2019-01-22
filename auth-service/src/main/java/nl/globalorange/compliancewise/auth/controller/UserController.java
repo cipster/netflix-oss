@@ -1,8 +1,8 @@
 package nl.globalorange.compliancewise.auth.controller;
 
+import lombok.RequiredArgsConstructor;
 import nl.globalorange.compliancewise.auth.domain.model.User;
 import nl.globalorange.compliancewise.auth.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,16 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.security.Principal;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
-
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @GetMapping(value = "/current")
     public Principal getUser(Principal principal) {

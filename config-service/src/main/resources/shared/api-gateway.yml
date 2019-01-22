@@ -28,5 +28,11 @@ zuul:
       stripPrefix: true
       sensitiveHeaders:
 
+    auth-service:
+      path: /auth/**
+      serviceId: auth-service
+      stripPrefix: false
+      sensitiveHeaders: Cookie,Set-Cookie
+
 server:
   port: 8080

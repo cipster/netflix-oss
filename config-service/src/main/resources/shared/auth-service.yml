@@ -1,13 +1,14 @@
 spring:
   data:
     mongodb:
+      uri: mongodb://auth-mongodb/auth
       host: auth-mongodb
       username: user
       password: ${MONGODB_PASSWORD}
       database: auth
-      port: 27017
+      port: 5001
 
 server:
   servlet:
-    context-path: /uaa
+    context-path: /auth
   port: 5000

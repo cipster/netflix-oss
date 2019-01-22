@@ -13,7 +13,6 @@ public class UserServiceImpl implements UserService {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
-
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
