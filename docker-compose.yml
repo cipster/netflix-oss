@@ -44,6 +44,8 @@ services:
     depends_on:
       config-service:
         condition: service_healthy
+    ports:
+      - "5000:5000"
     logging:
       options:
         max-size: "10m"
@@ -138,7 +140,7 @@ services:
       config-service:
         condition: service_healthy
     ports:
-      - 9000:8080
+      - "9000:8080"
     logging:
       options:
         max-size: "10m"
