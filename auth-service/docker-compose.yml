@@ -12,7 +12,7 @@ services:
       - MONGO_LOG_DIR=/data/logs
       - MONGODB_DATABASE=auth
     volumes:
-      - ~/party-db/data/db:/data/db
+      - ~/auth-db/data/db:/data/db
     ports:
-      - 5001:27017
+      - "5001:27017"
     command: mongod --smallfiles --logpath=/dev/null # --quiet

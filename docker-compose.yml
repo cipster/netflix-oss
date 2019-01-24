@@ -40,6 +40,7 @@ services:
       ADMIN_SERVICE_PASSWORD: $ADMIN_SERVICE_PASSWORD
       PARTY_SERVICE_PASSWORD: $PARTY_SERVICE_PASSWORD
     image: grub/auth-service
+    container_name: "auth-service.compliance-wise.me"
     restart: always
     depends_on:
       config-service:
@@ -52,6 +53,7 @@ services:
         max-file: "10"
 
   auth-mongodb:
+    container_name: "auth-mongodb.compliance-wise.me"
     extends:
       service: auth-db-standalone
       file: auth-service/docker-compose.yml
@@ -78,6 +80,7 @@ services:
         max-file: "10"
 
   party-db:
+    container_name: "party-db.compliance-wise.me"
     extends:
       service: party-db-standalone
       file: party-service/docker-compose.yml
@@ -164,6 +167,7 @@ services:
 
   rabbitmq:
     image: rabbitmq:management
+    container_name: "rabbitmq.compliance-wise.me"
     ports:
       - "5672:5672"
       - "15672:15672"

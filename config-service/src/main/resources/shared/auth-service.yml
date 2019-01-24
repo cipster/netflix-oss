@@ -1,7 +1,6 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://auth-mongodb/auth
       host: auth-mongodb
       username: user
       password: ${MONGODB_PASSWORD}

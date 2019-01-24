@@ -25,4 +25,10 @@ spring:
   rabbitmq:
     host: rabbitmq
   banner:
-    location: "classpath:grub-banner.txt"
+    location: classpath:grub-banner.txt
+
+
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://auth-service:5000/auth/users/current
