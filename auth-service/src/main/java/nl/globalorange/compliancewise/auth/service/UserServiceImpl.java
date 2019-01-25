@@ -1,13 +1,14 @@
 package nl.globalorange.compliancewise.auth.service;
 
+import lombok.RequiredArgsConstructor;
 import nl.globalorange.compliancewise.auth.domain.model.User;
 import nl.globalorange.compliancewise.auth.domain.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -16,17 +17,10 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository,
-                           PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
-
     @Override
     public void create(User user) {
 
-        userRepository.findById(user.getUsername()).ifPresent(existingUser -> {
+        userRepository.findByUsername(user.getUsername()).ifPresent(existingUser -> {
             throw new IllegalArgumentException("user already exists: " + existingUser.getUsername());
         });
 

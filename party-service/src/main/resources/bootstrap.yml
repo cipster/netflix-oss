@@ -1,6 +1,8 @@
 spring:
   application:
     name: party-service
+  banner:
+    location: classpath:grub-banner.txt
   cloud:
     config:
       uri: http://config-service:8888

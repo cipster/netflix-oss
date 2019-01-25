@@ -32,7 +32,7 @@ zuul:
       path: /auth/**
       serviceId: auth-service
       stripPrefix: false
-      sensitiveHeaders: Cookie,Set-Cookie
+      sensitiveHeaders:
 
 server:
   port: 8080

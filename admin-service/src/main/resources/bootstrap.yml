@@ -1,6 +1,8 @@
 spring:
   application:
     name: admin-service
+  banner:
+    location: classpath:grub-banner.txt
   cloud:
     config:
       uri: http://config-service:8888
