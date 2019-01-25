@@ -85,7 +85,7 @@ services:
       service: party-db-standalone
       file: party-service/docker-compose.yml
     ports:
-      - "5432:5432"
+      - "5440:5432"
     logging:
       options:
         max-size: "10m"
