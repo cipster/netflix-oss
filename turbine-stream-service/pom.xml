@@ -82,6 +82,7 @@
                 <version>1.4.9</version>
                 <configuration>
                     <repository>${docker.image.prefix}-${project.artifactId}</repository>
+                    <tag>${project.version}</tag>
                 </configuration>
                 <executions>
                     <execution>
@@ -103,5 +104,4 @@
             <url>https://repo.spring.io/milestone</url>
         </repository>
     </repositories>
-
 </project>

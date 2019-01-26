@@ -2,8 +2,8 @@ version: '2.1'
 
 services:
   config-service:
-    image: grub/config-service
-    container_name: "config-service.compliance-wise.me"
+    image: dulce-config-service
+    container_name: "config-service.software-dulce.ro"
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     restart: always
@@ -17,8 +17,8 @@ services:
         max-file: "10"
 
   discovery-service:
-    image: grub/discovery-service
-    container_name: "discovery-service.compliance-wise.me"
+    image: dulce-discovery-service
+    container_name: "discovery-service.software-dulce.ro"
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     restart: always
@@ -34,13 +34,30 @@ services:
         max-size: "10m"
         max-file: "10"
 
+  auth-mongodb:
+    container_name: "auth-mongodb.software-dulce.ro"
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+    environment:
+      MONGODB_PASSWORD: $MONGODB_PASSWORD
+      INIT_DUMP: initial-auth-dump.js
+      DB_NAME: $AUTH_DB_NAME
+    restart: always
+    ports:
+      - "5001:27017"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
   auth-service:
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
       ADMIN_SERVICE_PASSWORD: $ADMIN_SERVICE_PASSWORD
       PARTY_SERVICE_PASSWORD: $PARTY_SERVICE_PASSWORD
-    image: grub/auth-service
-    container_name: "auth-service.compliance-wise.me"
+    image: dulce-auth-service
+    container_name: "auth-service.software-dulce.ro"
     restart: always
     depends_on:
       config-service:
@@ -52,20 +69,9 @@ services:
         max-size: "10m"
         max-file: "10"
 
-  auth-mongodb:
-    container_name: "auth-mongodb.compliance-wise.me"
-    extends:
-      service: auth-db-standalone
-      file: auth-service/docker-compose.yml
-    restart: always
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
-
   api-gateway:
-    image: grub/api-gateway
-    container_name: "api-gateway.compliance-wise.me"
+    image: dulce-api-gateway
+    container_name: "api-gateway.software-dulce.ro"
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     restart: always
@@ -79,28 +85,28 @@ services:
         max-size: "10m"
         max-file: "10"
 
-  party-db:
-    container_name: "party-db.compliance-wise.me"
-    extends:
-      service: party-db-standalone
-      file: party-service/docker-compose.yml
+  admin-mongodb:
+    container_name: "admin-mongodb.software-dulce.ro"
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+    environment:
+      MONGODB_PASSWORD: $MONGODB_PASSWORD
+      INIT_DUMP: initial-admin-dump.js
+      DB_NAME: $ADMIN_DB_NAME
+    restart: always
     ports:
-      - "5440:5432"
+      - "5002:27017"
     logging:
       options:
         max-size: "10m"
         max-file: "10"
 
   admin-service:
-    image: grub/admin-service
-    container_name: "admin-service.compliance-wise.me"
+    image: dulce-admin-service
+    container_name: "admin-service.software-dulce.ro"
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-      RDS_HOSTNAME: $RDS_HOSTNAME
-      RDS_PORT: $RDS_PORT
-      RDS_DB_NAME: $RDS_DB_NAME
-      RDS_USERNAME: $RDS_USERNAME
-      RDS_PASSWORD: $RDS_PASSWORD
     restart: always
     depends_on:
       config-service:
@@ -112,30 +118,9 @@ services:
         max-size: "10m"
         max-file: "10"
 
-  party-service:
-    image: grub/party-service
-    container_name: "party-service.compliance-wise.me"
-    environment:
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-      RDS_HOSTNAME: $RDS_HOSTNAME
-      RDS_PORT: $RDS_PORT
-      RDS_DB_NAME: $RDS_DB_NAME
-      RDS_USERNAME: $RDS_USERNAME
-      RDS_PASSWORD: $RDS_PASSWORD
-    restart: always
-    depends_on:
-      config-service:
-        condition: service_healthy
-    ports:
-      - "8002:8002"
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
-
   monitoring-service:
-    image: grub/monitoring-service
-    container_name: "monitoring-service.compliance-wise.me"
+    image: dulce-monitoring-service
+    container_name: "monitoring-service.software-dulce.ro"
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     restart: always
@@ -150,8 +135,8 @@ services:
         max-file: "10"
 
   turbine-stream-service:
-    image: grub/turbine-stream-service
-    container_name: "turbine-stream-service.compliance-wise.me"
+    image: dulce-turbine-stream-service
+    container_name: "turbine-stream-service.software-dulce.ro"
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     restart: always
@@ -167,7 +152,7 @@ services:
 
   rabbitmq:
     image: rabbitmq:management
-    container_name: "rabbitmq.compliance-wise.me"
+    container_name: "rabbitmq.software-dulce.ro"
     ports:
       - "5672:5672"
       - "15672:15672"

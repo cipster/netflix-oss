@@ -24,9 +24,6 @@ eureka:
 spring:
   rabbitmq:
     host: rabbitmq
-  banner:
-    location: classpath:grub-banner.txt
-
 
 security:
   oauth2:

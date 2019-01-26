@@ -1,14 +1,12 @@
 spring:
-  liquibase:
-    change-log: classpath:db/changelog/changelog-master.xml
-    default-schema: master
-  datasource:
-    url: jdbc:postgresql://${RDS_HOSTNAME}:${RDS_PORT}/administration
-    username: ${RDS_USERNAME}
-    password: ${RDS_PASSWORD}
-    driver-class-name: org.postgresql.Driver
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  data:
+    mongodb:
+      host: admin-mongodb
+      username: admin
+      password: ${MONGODB_PASSWORD}
+      database: admin
+      authentication-database: admin
+      port: 5002
 
 security:
   oauth2:
@@ -18,12 +16,6 @@ security:
       accessTokenUri: http://auth-service:5000/auth/oauth/token
       grant-type: client_credentials
       scope: server
-
-hibernate:
-  connection:
-    url: jdbc:postgresql://${RDS_HOSTNAME}:${RDS_PORT}/administration
-  multiTenancy: SCHEMA
-  multi_tenant_connection_provider: nl.globalorange.compliancewise.core.multitenancy.SchemaMultiTenantConnectionProvider
 
 server:
   port: 8001

@@ -1,9 +1,0 @@
-version: '2.1'
-services:
-  party-db-standalone:
-    image: postgres
-    container_name: "party-db.compliance-wise.me"
-    restart: always
-    env_file: ./.env
-    ports:
-      - "5440:5432"

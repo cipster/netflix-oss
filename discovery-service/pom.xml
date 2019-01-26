@@ -27,11 +27,6 @@
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -80,6 +75,7 @@
                 <version>1.4.9</version>
                 <configuration>
                     <repository>${docker.image.prefix}-${project.artifactId}</repository>
+                    <tag>${project.version}</tag>
                 </configuration>
                 <executions>
                     <execution>

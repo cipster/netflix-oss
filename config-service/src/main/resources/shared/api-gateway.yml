@@ -22,12 +22,6 @@ zuul:
       stripPrefix: true
       sensitiveHeaders:
 
-    party-service:
-      path: /api/parties/**
-      serviceId: party-service
-      stripPrefix: true
-      sensitiveHeaders:
-
     auth-service:
       path: /auth/**
       serviceId: auth-service
