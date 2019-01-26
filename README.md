@@ -1,5 +1,4 @@
-# GRUB
-ComplianceWise GRUB
+# Micro-services Template
 
 ## Architecture
 
