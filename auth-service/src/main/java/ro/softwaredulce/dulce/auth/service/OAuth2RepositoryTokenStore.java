@@ -13,9 +13,9 @@ import ro.softwaredulce.dulce.auth.domain.model.OAuth2AuthenticationRefreshToken
 import ro.softwaredulce.dulce.auth.domain.repository.OAuth2AccessTokenRepository;
 import ro.softwaredulce.dulce.auth.domain.repository.OAuth2RefreshTokenRepository;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -34,31 +34,32 @@ public class OAuth2RepositoryTokenStore implements TokenStore {
 
     @Override
     public OAuth2Authentication readAuthentication(String tokenId) {
-        return oAuth2AccessTokenRepository.findByTokenId(tokenId).getAuthentication();
+        return oAuth2AccessTokenRepository.findByTokenId(tokenId)
+                .map(OAuth2AuthenticationAccessToken::getAuthentication)
+                .orElse(null);
     }
 
     @Override
     public void storeAccessToken(OAuth2AccessToken token, OAuth2Authentication authentication) {
         OAuth2AuthenticationAccessToken oAuth2AuthenticationAccessToken = new OAuth2AuthenticationAccessToken(token,
                 authentication, authenticationKeyGenerator.extractKey(authentication));
-        oAuth2AccessTokenRepository.save(oAuth2AuthenticationAccessToken);
+
+        oAuth2AccessTokenRepository
+                .findByTokenId(oAuth2AuthenticationAccessToken.getOAuth2AccessToken().getValue())
+                .orElseGet(() -> oAuth2AccessTokenRepository.save(oAuth2AuthenticationAccessToken));
     }
 
     @Override
     public OAuth2AccessToken readAccessToken(String tokenValue) {
-        OAuth2AuthenticationAccessToken token = oAuth2AccessTokenRepository.findByTokenId(tokenValue);
-        if (token == null) {
-            return null; //let spring security handle the invalid token
-        }
-        return token.getOAuth2AccessToken();
+        return oAuth2AccessTokenRepository.findByTokenId(tokenValue)
+                .map(OAuth2AuthenticationAccessToken::getOAuth2AccessToken)
+                .orElse(null);
     }
 
     @Override
     public void removeAccessToken(OAuth2AccessToken token) {
-        OAuth2AuthenticationAccessToken accessToken = oAuth2AccessTokenRepository.findByTokenId(token.getValue());
-        if (accessToken != null) {
-            oAuth2AccessTokenRepository.delete(accessToken);
-        }
+        oAuth2AccessTokenRepository.findByTokenId(token.getValue())
+                .ifPresent(oAuth2AccessTokenRepository::delete);
     }
 
     @Override
@@ -68,28 +69,35 @@ public class OAuth2RepositoryTokenStore implements TokenStore {
 
     @Override
     public OAuth2RefreshToken readRefreshToken(String tokenValue) {
-        return oAuth2RefreshTokenRepository.findByTokenId(tokenValue).getOAuth2RefreshToken();
+        return oAuth2RefreshTokenRepository.findByTokenId(tokenValue)
+                .map(OAuth2AuthenticationRefreshToken::getOAuth2RefreshToken)
+                .orElse(null);
     }
 
     @Override
     public OAuth2Authentication readAuthenticationForRefreshToken(OAuth2RefreshToken token) {
-        return oAuth2RefreshTokenRepository.findByTokenId(token.getValue()).getAuthentication();
+        return oAuth2RefreshTokenRepository.findByTokenId(token.getValue())
+                .map(OAuth2AuthenticationRefreshToken::getAuthentication)
+                .orElse(null);
     }
 
     @Override
     public void removeRefreshToken(OAuth2RefreshToken token) {
-        oAuth2RefreshTokenRepository.delete(oAuth2RefreshTokenRepository.findByTokenId(token.getValue()));
+        oAuth2RefreshTokenRepository.findByTokenId(token.getValue())
+                .ifPresent(oAuth2RefreshTokenRepository::delete);
     }
 
     @Override
     public void removeAccessTokenUsingRefreshToken(OAuth2RefreshToken refreshToken) {
-        oAuth2AccessTokenRepository.delete(oAuth2AccessTokenRepository.findByRefreshToken(refreshToken.getValue()));
+        oAuth2AccessTokenRepository.findByRefreshToken(refreshToken.getValue())
+                .ifPresent(oAuth2AccessTokenRepository::delete);
     }
 
     @Override
     public OAuth2AccessToken getAccessToken(OAuth2Authentication authentication) {
-        OAuth2AuthenticationAccessToken token = oAuth2AccessTokenRepository.findByAuthenticationId(authenticationKeyGenerator.extractKey(authentication));
-        return token == null ? null : token.getOAuth2AccessToken();
+        return oAuth2AccessTokenRepository.findByAuthenticationId(authenticationKeyGenerator.extractKey(authentication))
+                .map(OAuth2AuthenticationAccessToken::getOAuth2AccessToken)
+                .orElse(null);
     }
 
     @Override
@@ -105,11 +113,10 @@ public class OAuth2RepositoryTokenStore implements TokenStore {
     }
 
     private Collection<OAuth2AccessToken> extractAccessTokens(List<OAuth2AuthenticationAccessToken> tokens) {
-        List<OAuth2AccessToken> accessTokens = new ArrayList<>();
-        for (OAuth2AuthenticationAccessToken token : tokens) {
-            accessTokens.add(token.getOAuth2AccessToken());
-        }
-        return accessTokens;
+        return tokens
+                .stream()
+                .map(OAuth2AuthenticationAccessToken::getOAuth2AccessToken)
+                .collect(Collectors.toList());
     }
 
 }

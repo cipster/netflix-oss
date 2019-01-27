@@ -30,10 +30,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-sleuth</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -83,6 +79,7 @@
                 <configuration>
                     <repository>${docker.image.prefix}-${project.artifactId}</repository>
                     <tag>${project.version}</tag>
+                    <tag>latest</tag>
                 </configuration>
                 <executions>
                     <execution>
