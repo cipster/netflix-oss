@@ -2,8 +2,8 @@ version: '2.1'
 
 services:
   config-service:
-    image: dulce-config-service
-    container_name: "config-service.software-dulce.ro"
+    image: arnia-config-service
+    container_name: "config-service.arnia.ro"
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     restart: always
@@ -17,8 +17,8 @@ services:
         max-file: "10"
 
   discovery-service:
-    image: dulce-discovery-service
-    container_name: "discovery-service.software-dulce.ro"
+    image: arnia-discovery-service
+    container_name: "discovery-service.arnia.ro"
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     restart: always
@@ -35,7 +35,7 @@ services:
         max-file: "10"
 
   auth-mongodb:
-    container_name: "auth-mongodb.software-dulce.ro"
+    container_name: "auth-mongodb.arnia.ro"
     build:
       context: ./docker
       dockerfile: Dockerfile
@@ -56,8 +56,8 @@ services:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
       ADMIN_SERVICE_PASSWORD: $ADMIN_SERVICE_PASSWORD
       PARTY_SERVICE_PASSWORD: $PARTY_SERVICE_PASSWORD
-    image: dulce-auth-service
-    container_name: "auth-service.software-dulce.ro"
+    image: arnia-auth-service
+    container_name: "auth-service.arnia.ro"
     restart: always
     depends_on:
       config-service:
@@ -70,8 +70,8 @@ services:
         max-file: "10"
 
   api-gateway:
-    image: dulce-api-gateway
-    container_name: "api-gateway.software-dulce.ro"
+    image: arnia-api-gateway
+    container_name: "api-gateway.arnia.ro"
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     restart: always
@@ -86,7 +86,7 @@ services:
         max-file: "10"
 
   admin-mongodb:
-    container_name: "admin-mongodb.software-dulce.ro"
+    container_name: "admin-mongodb.arnia.ro"
     build:
       context: ./docker
       dockerfile: Dockerfile
@@ -103,8 +103,8 @@ services:
         max-file: "10"
 
   admin-service:
-    image: dulce-admin-service
-    container_name: "admin-service.software-dulce.ro"
+    image: arnia-admin-service
+    container_name: "admin-service.arnia.ro"
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     restart: always
@@ -119,8 +119,8 @@ services:
         max-file: "10"
 
   monitoring-service:
-    image: dulce-monitoring-service
-    container_name: "monitoring-service.software-dulce.ro"
+    image: arnia-monitoring-service
+    container_name: "monitoring-service.arnia.ro"
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     restart: always
@@ -135,8 +135,8 @@ services:
         max-file: "10"
 
   turbine-stream-service:
-    image: dulce-turbine-stream-service
-    container_name: "turbine-stream-service.software-dulce.ro"
+    image: arnia-turbine-stream-service
+    container_name: "turbine-stream-service.arnia.ro"
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     restart: always
@@ -152,7 +152,7 @@ services:
 
   rabbitmq:
     image: rabbitmq:management
-    container_name: "rabbitmq.software-dulce.ro"
+    container_name: "rabbitmq.arnia.ro"
     ports:
       - "5672:5672"
       - "15672:15672"
